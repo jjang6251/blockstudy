@@ -8,7 +8,7 @@ import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 
 contract Fastcampus is ERC20, Ownable, ERC20Permit {
     constructor(address initialOwner)
-        ERC20("Fastcampus", "FC")
+        ERC20("Fastcampus", "JSW")
         Ownable(initialOwner)
         ERC20Permit("Fastcampus")
     {}
