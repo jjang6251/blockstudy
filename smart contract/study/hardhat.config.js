@@ -6,22 +6,22 @@ const DEFAULT_COMPILER_SETTINGS = {
   settings: {
     optimizer: {
       enabled: true,
-      runs: 200
-    }
-  }
-}
+      runs: 200,
+    },
+  },
+};
 
-/** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
-  solidity: {
-    compilers: [DEFAULT_COMPILER_SETTINGS],
-  }, networks: {
+  solidity: DEFAULT_COMPILER_SETTINGS,
+
+  networks: {
     hardhat: {
       chainId: 31337,
-    }
-  },
-  monad: {
-    url: process.env.MONAD_RPC_URL,
-    accounts: [process.env.PRIVATE_KEY],
+    },
+    sepolia: {
+      url: process.env.SEPOLIA_RPC_URL,
+      accounts: [process.env.PRIVATE_KEY],
+      chainId: 11155111,
+    },
   },
 };

@@ -6,12 +6,12 @@ async function main() {
     const abi = artifact.abi;
     const bytecode = artifact.bytecode;
 
-    const provider = new ethers.JsonRpcProvider(process.env.MONAD_RPC_URL);
+    const provider = new ethers.JsonRpcProvider(process.env.SEPOLIA_RPC_URL);
     const wallet = new ethers.Wallet(process.env.PRIVATE_KEY, provider);
     const balance = await provider.getBalance(wallet.address);
     const deployer = wallet.address;
 
-    console.log("deploying...", deployer)
+    console.log("deployer address...", deployer)
 
     const factory = new ethers.ContractFactory(abi, bytecode, wallet);
     const fastcampus = await factory.deploy(deployer);
