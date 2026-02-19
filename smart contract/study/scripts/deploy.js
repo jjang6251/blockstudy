@@ -2,7 +2,8 @@ const {ethers} = require("ethers");
 const hre = require("hardhat");
 
 async function main() {
-    const artifact = await hre.artifacts.readArtifact("Fastcampus");
+    //배포하는 컨트랙트 이름으로 artifact 이름 읽어오기.
+    const artifact = await hre.artifacts.readArtifact("FastcampusOracle");
     const abi = artifact.abi;
     const bytecode = artifact.bytecode;
 

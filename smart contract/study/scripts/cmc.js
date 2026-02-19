@@ -25,8 +25,8 @@ new Promise(async (resolve, reject) => {
         console.log(bitcoin);
 
         if (bitcoin && bitcoin.quote && bitcoin.quote.USD) {
-            console.log("Bitcoin USD data: ");
-            console.log(JSON.stringify(bitcoin.quote.USD, null, 2));
+            // console.log("Bitcoin USD data: ");
+            // console.log(JSON.stringify(bitcoin.quote.USD, null, 2));
             const realPrice = bitcoin.quote.USD.price;
             console.log("real price: ", realPrice);
 
@@ -35,7 +35,7 @@ new Promise(async (resolve, reject) => {
             const artifact = await hre.artifacts.readArtifact("FastcampusOracle");
             const abi = artifact.abi;
             const bytecode = artifact.bytecode;
-            const oracle = new ethers.Contract("0x59098E4cF0B240752f80ad76bf92f0341ED801cE", abi, wallet);
+            const oracle = new ethers.Contract("0x5052cf432062daf5f37D98bda62D7d96ed425b85", abi, wallet);
             const ethersPrice = ethers.parseEther(realPrice.toString());
             const owner = await oracle.owner();
             const signerAddress = await wallet.getAddress();
