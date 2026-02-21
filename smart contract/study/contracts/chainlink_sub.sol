@@ -67,7 +67,7 @@ contract MapleNFTS is ERC721, VRFConsumerBaseV2Plus {
 
   // For this example, retrieve 2 random values in one request.
   // Cannot exceed VRFCoordinatorV2_5.MAX_NUM_WORDS.
-  uint32 public numWords = 2;
+  uint32 public numWords = 4;
 
   /**
    * HARDCODED FOR SEPOLIA

@@ -65,10 +65,8 @@ async function main() {
 
 // main 실행 후 정상 종료/에러 처리
 main()
-  .then(() => process.exit(0).catch((error) => {
-    // ⚠️ 여기 구조도 조금 이상해: then 안에 catch를 붙이면 main 성공해도 catch가 이상하게 동작할 수 있어
-    // 보통은 아래처럼 쓰는 걸 권장:
-    // main().then(() => process.exit(0)).catch((error) => { ... })
+  .then(() => process.exit(0))
+  .catch((error) => {
     console.error(error);
     process.exit(1);
-  }));
+  });
