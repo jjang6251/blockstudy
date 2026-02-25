@@ -42,11 +42,8 @@ async function main() {
   // - deploy(...)를 호출하면 컨트랙트 생성 트랜잭션을 만들어서 네트워크에 보냄
   const factory = new ethers.ContractFactory(abi, bytecode, wallet);
 
-  // ⚠️ 8) subscriptionID 준비 (여기가 지금 코드상 문제 가능성 큼)
-  // - ethers.toBigInt("") 는 빈 문자열을 BigInt로 바꾸려 해서 에러가 날 가능성이 큼
-  // - subscriptionID는 보통 Chainlink VRF subscription id 같은 값(숫자)임
-  //   예) const subscriptionID = 123n;
-  //   예) const subscriptionID = ethers.toBigInt("123");
+  // ✅ 8) subscriptionID 준비
+  // ChainLink VRF ID 값
   const subscriptionID = ethers.toBigInt("51072396844416215303992335196748623877629988781204266923410875530134572365360");
 
   // ✅ 9) 컨트랙트 배포
