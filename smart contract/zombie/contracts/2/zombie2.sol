@@ -24,9 +24,16 @@ contract ZombieFactory {
     mapping (address => uint) ownerZombieCount;
 
     function _createZombie(string memory _name, uint _dna) private {
-        //array.push를 통해 배열 끝에 추가할 수 있다.
         zombies.push(Zombie(_name, _dna));
         uint id = zombies.length - 1;
+
+        /**
+            솔리디티에는 모든 함수에서 이용 가능한 특정 전역 변수들이 있다. 그 중의 하나가 현재 함수를 호출한 사람 (혹은 스마트 컨트랙트)의 주소를 가리키는 msg.sender이다.
+
+            ** 솔리디티에서 함수 실행은 항상 외부 호출자가 시작한다. 컨트랙트는 누군가가 컨트랙트의 함수를 호출할 때까지 블록체인 상에서 아무것도 안하고 있을 것이다. **
+         */
+        zombieToOwner[id] = msg.sender;
+        ownerZombieCount[msg.sender]++;
         emit NewZombie(id, _name, _dna);
     }
 
