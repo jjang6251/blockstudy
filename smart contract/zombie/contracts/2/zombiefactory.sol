@@ -23,7 +23,7 @@ contract ZombieFactory {
     mapping (uint => address) public zombieToOwner;
     mapping (address => uint) ownerZombieCount;
 
-    function _createZombie(string memory _name, uint _dna) private {
+    function _createZombie(string memory _name, uint _dna) internal {
         zombies.push(Zombie(_name, _dna));
         uint id = zombies.length - 1;
 
@@ -52,11 +52,4 @@ contract ZombieFactory {
         uint randDna = _generateRandomDna(_name);
         _createZombie(_name, randDna);
     }
-}
-
-/**
-    상속하는 contract는 상속되는 contract의 어떤 public 함수든지 접근이 가능하다.
- */
-contract ZombieFeeding is ZombieFactory {
-
 }

@@ -174,7 +174,7 @@ contract ZombieFactory {
         컨트랙트 함수의 public 선언 -> 누구나 내 컨트랙트의 함수를 호출하고 코드를 실행할 수 있다는 의미이다.
         그래서 기본적으로는 함수는 private으로 선언한다. private 함수명도 앞에 언더바를 붙이는 것이 관례이다.
        */
-    function _createZombie(string memory _name, uint _dna) private {
+    function _createZombie(string memory _name, uint _dna) internal {
         //array.push를 통해 배열 끝에 추가할 수 있다.
         zombies.push(Zombie(_name, _dna));
         uint id = zombies.length - 1;
