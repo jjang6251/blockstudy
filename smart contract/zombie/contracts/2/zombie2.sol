@@ -45,6 +45,10 @@ contract ZombieFactory {
     }
 
     function createRandomZombie(string memory _name) public {
+        /**
+            require를 활용하게 되면 특정 조건이 참이 아닐 때 함수가 에러 메시지를 발생하고 실행을 멈추게 된다.
+         */
+        require(ownerZombieCount[msg.sender] == 0);
         uint randDna = _generateRandomDna(_name);
         _createZombie(_name, randDna);
     }
