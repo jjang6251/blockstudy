@@ -53,3 +53,10 @@ contract ZombieFactory {
         _createZombie(_name, randDna);
     }
 }
+
+/**
+    상속하는 contract는 상속되는 contract의 어떤 public 함수든지 접근이 가능하다.
+ */
+contract ZombieFeeding is ZombieFactory {
+
+}
