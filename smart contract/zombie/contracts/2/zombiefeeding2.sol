@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.27;
 
-import "./zombiefactory.sol";
+import "./zombiefactory2.sol";
 
 /**
     블록체인 상에서 우리가 소유하지 않은 컨트랙트와 우리 컨트랙트가 상호작용을 하려면 우선 인터페이스를 정의해야 한다.
@@ -31,7 +31,7 @@ interface KittyInterface {
 /**
     상속하는 contract는 상속되는 contract의 어떤 public 함수든지 접근이 가능하다.
  */
-contract ZombieFeeding is ZombieFactory {
+contract ZombieFeeding2 is ZombieFactory2 {
     /**
         크립토 키티 contract와 상호작용을 하기 위해서 크립토 키티 주소를 이용하여 정의한 인터페이스를 사용한다.
      */
