@@ -33,13 +33,28 @@ contract ZombieFeeding3 is ZombieFactory3 {
         kittyContract = KittyInterface(_address);
     }
 
+    /**
+        ** 구조체를 인수로 전달하기 **
+        private 또는 internal 함수에 인수로서 구조체의 storage 포인터를 전달할 수 있다.
+        함수들 간에 구조체를 주고 받을 때 유용하다.
+     */
+
+    function _triggerCooldown(Zombie storage _zombie) internal {
+        _zombie.readyTime = uint32(block.timestamp + cooldownTime);
+    }
+
+    function _isReady(Zombie storage _zombie) internal view returns (bool) {
+        return (_zombie.readyTime <= block.timestamp);
+    }
+
     function feedAndMultiply(
         uint _zombieID,
         uint _targetDna,
         string memory _species
-    ) public {
+    ) internal {
         require(zombieToOwner[_zombieID] == msg.sender);
         Zombie storage myZombie = zombies[_zombieID];
+        require(_isReady(myZombie));
 
         _targetDna = _targetDna % dnaModulus;
         uint newDna = (myZombie.dna + _targetDna) / 2;
@@ -50,27 +65,27 @@ contract ZombieFeeding3 is ZombieFactory3 {
             newDna = newDna - (newDna % 100) + 99;
         }
         _createZombie("NoName", newDna);
+        _triggerCooldown(myZombie);
     }
 
-    /**
-        function multipleReturns() internal returns(uint a, uint b, uint c) {
-            return(1,2,3);
-        }
-        function processMultipleReturns() external {
-            uint a;
-            uint b;
-            uint c;
-            // 다음과 같이 다수 값을 할당한다:
-            (a, b, c) = multipleReturns();
-        }
+    function multipleReturns() internal pure returns(uint a, uint b, uint c) {
+        return(1,2,3);
+    }
 
-        // 혹은 단 하나의 값에만 관심이 있을 경우: 
-        function getLastReturnValue() external {
-            uint c;
-            // 다른 필드는 빈칸으로 놓기만 하면 된다: 
-            (,,c) = multipleReturns();
-        }
-     */
+    function processMultipleReturns() external pure {
+        uint a;
+        uint b;
+        uint c;
+        // 다음과 같이 다수 값을 할당한다:
+        (a, b, c) = multipleReturns();
+    }
+
+    // 혹은 단 하나의 값에만 관심이 있을 경우: 
+    function getLastReturnValue() external pure {
+        uint c;
+        // 다른 필드는 빈칸으로 놓기만 하면 된다: 
+        (,,c) = multipleReturns();
+    }
 
     function feedOnKitty(uint _zombieId, uint _kittyId) public {
         uint kittyDna;
