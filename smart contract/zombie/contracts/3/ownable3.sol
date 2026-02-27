@@ -27,8 +27,28 @@ contract Ownable3 {
   }
 
   /**
-   * @dev Throws if called by any account other than the owner.
-   */
+    modifier
+    ↓
+    함수 본문
+    ↓
+    modifier 이후 코드
+
+    // 예시
+    modifier test() {
+        console.log("Before");
+        _;
+        console.log("After");
+    }
+
+    function foo() public test {
+        console.log("Inside");
+    }
+
+    // 실행 결과
+    Before
+    Inside
+    After
+    */
   modifier onlyOwner() {
     require(msg.sender == owner);
     _;
