@@ -25,8 +25,14 @@ interface KittyInterface {
 
 contract ZombieFeeding3 is ZombieFactory3 {
 
-    address ckAddress = 0x06012c8cf97BEaD5deAe237070F9587f8E7A266d;
-    KittyInterface kittyContract = KittyInterface(ckAddress);
+    // 해당 컨트랙트에 대한 버그 발생시 해당 주소를 바꿀 수 있도록 함.
+    // address ckAddress = 0x06012c8cf97BEaD5deAe237070F9587f8E7A266d;
+    // KittyInterface kittyContract = KittyInterface(ckAddress);
+
+    KittyInterface kittyContract;
+    function setKittyContractAddress(address _address) external {
+        kittyContract = KittyInterface(_address);
+    }
 
     function feedAndMultiply(
         uint _zombieID,
