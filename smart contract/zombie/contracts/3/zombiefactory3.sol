@@ -1,7 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.27;
 
-contract ZombieFactory3 {
+import "./ownable3.sol";
+
+contract ZombieFactory3 is Ownable3 {
     event NewZombie(uint zombieId, string name, uint dna);
 
     uint dnaDigits = 16;
@@ -14,8 +16,8 @@ contract ZombieFactory3 {
 
     Zombie[] public zombies;
 
-    mapping (uint => address) public zombieToOwner;
-    mapping (address => uint) ownerZombieCount;
+    mapping(uint => address) public zombieToOwner;
+    mapping(address => uint) ownerZombieCount;
 
     function _createZombie(string memory _name, uint _dna) internal {
         zombies.push(Zombie(_name, _dna));
@@ -34,7 +36,6 @@ contract ZombieFactory3 {
     }
 
     function createRandomZombie(string memory _name) public {
-
         require(ownerZombieCount[msg.sender] == 0);
         uint randDna = _generateRandomDna(_name);
         _createZombie(_name, randDna);
