@@ -5,6 +5,7 @@ import "./zombiehelper4.sol";
 
 contract ZombieBattle4 is ZombieHelper4 {
     uint randNonce = 0;
+    uint attackVictoryProbability = 70;
 
     /**
         실제 이더리움에서 난수를 안전하게 만들기 위해서는 외부의 난수 함수에 접근할 수 있도록 해주는 오라클(oracle)을 사용한다.
@@ -17,5 +18,9 @@ contract ZombieBattle4 is ZombieHelper4 {
                     abi.encodePacked(block.timestamp, msg.sender, randNonce)
                 )
             ) % _modulus;
+    }
+
+    function attack(uint _zombieId, uint _targetId) external {
+        
     }
 }
