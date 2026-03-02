@@ -20,10 +20,23 @@ contract ZombieBattle4 is ZombieHelper4 {
             ) % _modulus;
     }
 
-    function attack(uint _zombieId, uint _targetId) external ownerOf(_zombieId){
+    function attack(
+        uint _zombieId,
+        uint _targetId
+    ) external ownerOf(_zombieId) {
         Zombie storage myZombie = zombies[_zombieId];
         Zombie storage enemyZombie = zombies[_targetId];
-
         uint rand = randMod(100);
+
+        if (rand <= attackVictoryProbability) {
+            myZombie.winCount++;
+            myZombie.level++;
+            enemyZombie.lossCount++;
+            feedAndMultiply(_zombieId, enemyZombie.dna, "zombie");
+        } else {
+            myZombie.lossCount++;
+            enemyZombie.winCount++;
+        }
+        _triggerCooldown(myZombie);
     }
 }
