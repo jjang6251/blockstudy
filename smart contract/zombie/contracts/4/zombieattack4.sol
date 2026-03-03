@@ -3,7 +3,7 @@ pragma solidity ^0.8.27;
 
 import "./zombiehelper4.sol";
 
-contract ZombieBattle4 is ZombieHelper4 {
+contract ZombieAttack4 is ZombieHelper4 {
     uint randNonce = 0;
     uint attackVictoryProbability = 70;
 
@@ -23,7 +23,7 @@ contract ZombieBattle4 is ZombieHelper4 {
     function attack(
         uint _zombieId,
         uint _targetId
-    ) external ownerOf(_zombieId) {
+    ) external onlyOwnerOf(_zombieId) {
         Zombie storage myZombie = zombies[_zombieId];
         Zombie storage enemyZombie = zombies[_targetId];
         uint rand = randMod(100);
