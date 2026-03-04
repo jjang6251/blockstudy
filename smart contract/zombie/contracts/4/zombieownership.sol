@@ -23,4 +23,19 @@ abstract contract ZombieOwnership is ZombieAttack4, ERC721 {
     ) public view override returns (address _owner) {
         return zombieToOwner[_tokenId];
     }
+
+    function _transfer(address _from, address _to, uint256 _tokenId) private {
+        ownerZombieCount[_to]++;
+        ownerZombieCount[_from]--;
+        zombieToOwner[_tokenId] = _to;
+        /**
+            ERC721 스펙에는 Transfer 이벤트가 포함되어 있다. 따라서 _transfer 함수 마지막 부분에는 이벤트를 
+            emit 해줘야 한다.
+         */
+        emit Transfer(_from, _to, _tokenId);
+    }
+
+    function transfer(address _to, uint256 _tokenId) public {
+
+    }
 }
