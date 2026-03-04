@@ -12,6 +12,9 @@ import "./erc721.sol";
     -> 구현을 나중에 추가할 예정이라면 abstrct로 표시하는 게 맞고, 해당 함수들을 모두 구현하면 abstract를 제거하면 된다.
  */
 abstract contract ZombieOwnership is ZombieAttack4, ERC721 {
+
+    mapping(uint => address) zombieApprovals;
+
     function balanceOf(
         address _owner
     ) public view override returns (uint256 _balance) {
@@ -35,7 +38,19 @@ abstract contract ZombieOwnership is ZombieAttack4, ERC721 {
         emit Transfer(_from, _to, _tokenId);
     }
 
-    function transfer(address _to, uint256 _tokenId) public {
+    function transfer(
+        address _to,
+        uint256 _tokenId
+    ) public onlyOwnerOf(_tokenId) {
+        _transfer(msg.sender, _to, _tokenId);
+    }
 
+    function approve(address _to, uint256 _tokenId) public onlyOwnerOf(_tokenId) {
+        zombieApprovals[_tokenId] = _to;
+
+        /**
+            Approval은 _owner가 _to에게 _tokenId의 판매 권한을 부여하는 것이다.
+         */
+        emit Approval(msg.sender, _to, _tokenId);
     }
 }
